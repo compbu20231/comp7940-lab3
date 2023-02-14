@@ -1,2 +1,4 @@
+__pycache__
 .idea
-config.ini
+config.ini2
+callopenai.py
