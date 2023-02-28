@@ -49,7 +49,7 @@ def echo(update, context):
     
 def help_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Helping you helping you.')
+    update.message.reply_text('Helping you helping you. lab6')
 
 def hello(update: Update, context: CallbackContext) -> None:
     msg = context.args[0]
