@@ -2,7 +2,7 @@ from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 from callopenai import *
 
-# import configparser
+import configparser
 import os
 import logging
 
@@ -35,19 +35,25 @@ def main():
     dispatcher.add_handler(CommandHandler("add", add))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("hello", hello))
+    dispatcher.add_handler(CommandHandler("callai", callai))
+    
     # To start the bot:
     updater.start_polling()
     updater.idle()
 
 def echo(update, context):
-    reply_message = checkOpenAI(update.message.text.upper())
+    reply_message = update.message.text.upper()
     logging.info("Update: " + str(update))
     logging.info("context: " + str(context))
     context.bot.send_message(chat_id=update.effective_chat.id, text= reply_message)
 
     # Define a few command handlers. These usually take the two arguments update and
     # context. Error handlers also receive the raised TelegramError object in error.
-    
+
+def callai(update: Update, context: CallbackContext) -> None:
+    msg = context.args[0]
+    update.message.reply_text(checkOpenAI(msg))
+
 def help_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
     update.message.reply_text('Helping you helping you. lab6')
